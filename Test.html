@@ -1,0 +1,90 @@
+<html>
+    <head>
+        <title>流程图</title>
+        <script src="https://unpkg.com/vue"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <style>
+           .cssNav li{  
+                padding: 0px 20px;   
+                line-height: 40px;  
+                background: #666;  
+                display: inline-block;   
+                color: #fff;  
+                position: relative;  
+            }
+            .cssNav li:after{  
+                content: '';  
+                display: block;  
+                border-top: 20px solid transparent;  
+                border-bottom: 20px solid transparent;  
+                border-left: 20px solid #666;  
+                position: absolute;   
+                right: -20px;   
+                top: 0;  
+                z-index: 10;  
+            }
+            .cssNav li:before{  
+                content: '';  
+                display: block;  
+                border-top: 20px solid #666;  
+                border-bottom: 20px solid #666;  
+                border-left: 20px solid white;  
+                position: absolute;   
+                left: 2px;   
+                top: 0;  
+            }
+
+            .cssNav li:first-child{    
+                border-radius: 4px 0 0 4px;    
+                padding-left: 25px;  
+            }    
+            .cssNav li:last-child,.cssNavEnd{    
+                border-radius: 0px 4px 4px 0px;    
+                padding-right: 25px;  
+            }    
+            .cssNav li:first-child:before{    
+                display: none;    
+            }    
+            .cssNav li:last-child:after,.cssNavEnd:after{    
+                display: none;    
+            }
+            .cssNav li.active {  
+                background-color: #108ee9;  
+                
+            }  
+            .cssNav li.active:after {  
+                border-left-color: #108ee9;  
+            }
+            .cssNav li.active:before{
+                border-top-color: #108ee9;
+                border-bottom-color: #108ee9;
+            }
+ 
+        </style>
+    </head>
+    <body>
+        <div id="div1" class="cssNav">
+            <ol>
+            <template v-for="todo in todos">
+            <li v-if="todo.status!==''" :class="todo.isShadowed=='true'&&todo.isCurrentStatus=='true'?'active':''">
+                {{todo.name}}
+            </li>
+            </template>
+            </ol>
+        </div>
+        <script>
+        new Vue({
+            el:'#div1',
+            data:{
+                todos:[
+                    {name:"草稿",status:"WAIT_ACCEPT",isShadowed:"true"},
+                    {name:"待审核",status:"WAIT_DELIVER",isShadowed:"true",isCurrentStatus:"true"},
+                    {name:"待复核",status:"STOCK_IN"},
+                    {name:"已核准",status:"DELIVER"},
+                    {name:"已终止"}
+                ]
+            }
+        }) 
+        </script>
+    </body>
+</html>
